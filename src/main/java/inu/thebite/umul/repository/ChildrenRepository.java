@@ -11,9 +11,9 @@ public interface ChildrenRepository extends JpaRepository<Children, Long> {
 
     Optional<Children> findByName(String name);
 
-    @Query(value = "SELECT phone_number FROM Children WHERE phone_number = :phoneNumber and name = :childName", nativeQuery = true)
+    @Query(value = "SELECT phone_number FROM children WHERE phone_number = :phoneNumber and name = :childName", nativeQuery = true)
     String findByPhoneNumber(String phoneNumber, String childName);
 
-    @Query(value = "SELECT * FROM Children WHERE phone_number = :phoneNumber", nativeQuery = true)
+    @Query(value = "SELECT * FROM children WHERE phone_number = :phoneNumber", nativeQuery = true)
     List<Children> findChildrenByPhoneNumber(String phoneNumber);
 }
