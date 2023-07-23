@@ -16,13 +16,13 @@ public interface EatingHabitRepository extends JpaRepository<EatingHabit, Long> 
 
     boolean existsByDate(String date);
 
-    @Query(value = "SELECT e.total_count FROM eating_habit e inner join children c ON c.name = :childName AND e.date = :date ORDER BY e.created_at DESC LIMIT 1 ", nativeQuery = true)
+    @Query(value = "SELECT total_count FROM eating_habit WHERE child_id = :(SELECT child_id FROM children WHERE name = :childName) AND date = :date ORDER BY e.created_at DESC LIMIT 1 ", nativeQuery = true)
     List<Integer> findTotalCountTopByDateAndChildrenNameOrderByCreatedAtDesc(String date, String childName);
 
-    @Query(value = "SELECT e.total_time FROM eating_habit e inner join children c ON e.date = :date AND c.name = :childName ORDER BY e.created_at DESC LIMIT 1 ", nativeQuery = true)
+    @Query(value = "SELECT total_time FROM eating_habit WHERE child_id = :(SELECT child_id FROM children WHERE name = :childName) AND date = :date ORDER BY e.created_at DESC LIMIT 1 ", nativeQuery = true)
     List<Integer> findTotalTimeTopByDateAndChildrenNameOrderByCreatedAtDesc(String date, String childName);
 
-    @Query(value = "SELECT e.bite_count_with_mouth FROM eating_habit e inner join children c ON c.name = :childName AND e.date = :date ORDER BY e.created_at DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT bite_count_with_mouth FROM eating_habit WHERE child_id = :(SELECT child_id FROM children WHERE name = :childName) AND date = :date ORDER BY e.created_at DESC LIMIT 1", nativeQuery = true)
     List<Integer> findBitCountWithMouthTopByDateAndChildrenNameOrderByCreatedAtDesc(String date, String childName);
 
 //    @Query(value = "SELECT count_per_success FROM eating_habit WHERE name = :childName AND date = :date ORDER BY created_at DESC LIMIT 1", nativeQuery = true)
