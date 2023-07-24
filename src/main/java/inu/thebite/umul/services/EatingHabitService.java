@@ -54,7 +54,7 @@ public class EatingHabitService {
         // 해당 날짜에 기록이 있는지 확인
         if (eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findTotalCountTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
+            List<Integer> result = eatingHabitRepository.findTotalCountTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
             String feedback = feedBackService.getTotalCountFeedback(result.get(0), children.getGender());
             return new DailyReportTotalCountResponse(date, result.get(0), feedback);
         } else {
@@ -73,7 +73,7 @@ public class EatingHabitService {
         // 해당 날짜에 기록이 있는지 확인
         if(eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findTotalTimeTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
+            List<Integer> result = eatingHabitRepository.findTotalTimeTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
             String feedback = feedBackService.getTotalTimeFeedback(result.get(0), children.getGender());
             return new DailyReportTotalTimeResponse(date, result.get(0), feedback);
         } else {
@@ -92,7 +92,7 @@ public class EatingHabitService {
         // 해당 날짜에 기록이 있는지 확인
         if(eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findBitCountWithMouthTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
+            List<Integer> result = eatingHabitRepository.findBitCountWithMouthTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
             String feedback = feedBackService.getBiteCountByMouthFeedback(result.get(0));
             return new DailyReportBiteCountByMouthResponse(date, result.get(0), feedback);
         } else {
