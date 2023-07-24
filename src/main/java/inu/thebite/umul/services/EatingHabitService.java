@@ -35,7 +35,7 @@ public class EatingHabitService {
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
 
         // 등록이 되어 있는 자녀인지 확인
-        Children children = childrenRepository.findByName(childName)
+        Children children = childrenRepository.findByNameWithPhoneNumber(childName, memberNumber)
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 자녀의 부모가 맞는지 확인 후 저장 가능하게 하기
