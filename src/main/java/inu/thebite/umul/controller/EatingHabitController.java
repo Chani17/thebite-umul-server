@@ -32,29 +32,26 @@ public class EatingHabitController {
     }
 
     // 일일레포트 총 저작횟수 정보 가져오기
-    @GetMapping("{memberNumber}/{childName}/dailyReport/totalCount")
+    @GetMapping("{childName}/dailyReport/totalCount")
     public ResponseEntity getDailyReportWithTotalCount(@PathVariable String childName,
-                                                       @PathVariable("memberNumber") String memberNumber,
                                                       @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") String date)  {
-        DailyReportTotalCountResponse response = eatingHabitService.getDailyReportWithTotalCount(memberNumber, childName, date);
+        DailyReportTotalCountResponse response = eatingHabitService.getDailyReportWithTotalCount(childName, date);
         return ResponseEntity.ok(response);
     }
 
     // 일일레포트 총 식사시간 정보 가져오기
-    @GetMapping("{memberNumber}/{childName}/dailyReport/totalTime")
+    @GetMapping("{childName}/dailyReport/totalTime")
     public ResponseEntity getDailyReportWithTotalTime(@PathVariable String childName,
-                                                      @PathVariable("memberNumber") String memberNumber,
                                                       @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") String date) {
-        DailyReportTotalTimeResponse response = eatingHabitService.getDailyReportWithTotalTime(memberNumber, childName, date);
+        DailyReportTotalTimeResponse response = eatingHabitService.getDailyReportWithTotalTime(childName, date);
         return ResponseEntity.ok(response);
     }
 
     // 일일레포트 한 입당 저작횟수 정보 가져오기
-    @GetMapping("{memberNumber}/{childName}/dailyReport/biteCountByMouth")
+    @GetMapping("{childName}/dailyReport/biteCountByMouth")
     public ResponseEntity getDailyReportWithBiteCountByMouth(@PathVariable String childName,
-                                                             @PathVariable("memberNumber") String memberNumber,
                                                              @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") String date) {
-        DailyReportBiteCountByMouthResponse response = eatingHabitService.getDailyReportWithBiteCountByMouth(memberNumber, childName, date);
+        DailyReportBiteCountByMouthResponse response = eatingHabitService.getDailyReportWithBiteCountByMouth(childName, date);
         return ResponseEntity.ok(response);
     }
 

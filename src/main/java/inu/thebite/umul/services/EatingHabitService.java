@@ -35,7 +35,7 @@ public class EatingHabitService {
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
 
         // 등록이 되어 있는 자녀인지 확인
-        Children children = childrenRepository.findByNameWithPhoneNumber(childName, memberNumber)
+        Children children = childrenRepository.findByName(childName)
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 자녀의 부모가 맞는지 확인 후 저장 가능하게 하기
@@ -46,15 +46,15 @@ public class EatingHabitService {
 
 
    // 일일레포트 총 저작횟수 정보 가져오기
-    public DailyReportTotalCountResponse getDailyReportWithTotalCount(String memberNumber, String childName, String date) {
+    public DailyReportTotalCountResponse getDailyReportWithTotalCount(String childName, String date) {
         // 등록이 되어 있는 자녀인지 확인
-        Children children = childrenRepository.findByNameWithPhoneNumber(childName, memberNumber)
+        Children children = childrenRepository.findByName(childName)
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 날짜에 기록이 있는지 확인
         if (eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findTotalCountTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
+            List<Integer> result = eatingHabitRepository.findTotalCountTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
             String feedback = feedBackService.getTotalCountFeedback(result.get(0), children.getGender());
             return new DailyReportTotalCountResponse(date, result.get(0), feedback);
         } else {
@@ -65,15 +65,15 @@ public class EatingHabitService {
 
 
     // 일일레포트 총 식사시간 정보 가져오기
-    public DailyReportTotalTimeResponse getDailyReportWithTotalTime(String memberNumber, String childName, String date) {
+    public DailyReportTotalTimeResponse getDailyReportWithTotalTime(String childName, String date) {
         // 등록이 되어 있는 자녀인지 확인
-        Children children = childrenRepository.findByNameWithPhoneNumber(childName, memberNumber)
+        Children children = childrenRepository.findByName(childName)
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 날짜에 기록이 있는지 확인
         if(eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findTotalTimeTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
+            List<Integer> result = eatingHabitRepository.findTotalTimeTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
             String feedback = feedBackService.getTotalTimeFeedback(result.get(0), children.getGender());
             return new DailyReportTotalTimeResponse(date, result.get(0), feedback);
         } else {
@@ -84,15 +84,15 @@ public class EatingHabitService {
 
 
     // 일일레포트 한 입당 저작횟수 정보 가져오기
-    public DailyReportBiteCountByMouthResponse getDailyReportWithBiteCountByMouth(String memberNumber, String childName, String date) {
+    public DailyReportBiteCountByMouthResponse getDailyReportWithBiteCountByMouth(String childName, String date) {
         // 등록이 되어 있는 자녀인지 확인
-        childrenRepository.findByNameWithPhoneNumber(childName, memberNumber)
+        childrenRepository.findByName(childName)
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 날짜에 기록이 있는지 확인
         if(eatingHabitRepository.existsByDate(date)) {
             // 가장 최신 식사 기록 가져오기
-            List<Integer> result = eatingHabitRepository.findBitCountWithMouthTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName, memberNumber);
+            List<Integer> result = eatingHabitRepository.findBitCountWithMouthTopByDateAndChildrenNameOrderByCreatedAtDesc(date, childName);
             String feedback = feedBackService.getBiteCountByMouthFeedback(result.get(0));
             return new DailyReportBiteCountByMouthResponse(date, result.get(0), feedback);
         } else {
