@@ -39,7 +39,7 @@ public class EatingHabitService {
                 .orElseThrow(() -> new IllegalStateException("등록되어 있지 않은 자녀입니다."));
 
         // 해당 자녀의 부모가 맞는지 확인 후 저장 가능하게 하기
-        if (childrenRepository.findByPhoneNumber(memberNumber, childName).equals(member.getPhoneNumber())) {
+        if (memberNumber.equals(member.getPhoneNumber())) {
             EatingHabit saveEatingHabit = EatingHabit.createEatingHabit(eatingHabitSaveRequest.getDate(), eatingHabitSaveRequest.getSlot(), eatingHabitSaveRequest.getTotalTime(), eatingHabitSaveRequest.getTotalCount(), eatingHabitSaveRequest.getBiteCountByMouth(), eatingHabitSaveRequest.getSuccessCount(), eatingHabitSaveRequest.getCountPerSuccess(), eatingHabitSaveRequest.getCountPerFail(), children);
             eatingHabitRepository.save(saveEatingHabit);
         } else {
